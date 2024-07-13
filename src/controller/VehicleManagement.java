@@ -17,7 +17,9 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
     
     
     public static void main(String[] args) {
-        final String[] option={""};
+        final String[] option={"Load all data from file\",\"Add new vehicle\",\n" +
+"            \"Update vehicle\",\"Delete vehicle\",\"Search vehicle\",\n" +
+"            \"Show vehicle list\",\"Store data to file\",\"Quit app"};
         VehicleManagement vm = new VehicleManagement("", option);
         vm.run();
     }
