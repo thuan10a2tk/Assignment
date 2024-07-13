@@ -13,14 +13,13 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
     public VehicleManagement(String td, String[] mc) {
         super(td, mc);
     }
-
-    
     
     public static void main(String[] args) {
-        final String[] option={"Load all data from file\",\"Add new vehicle\",\n" +
-"            \"Update vehicle\",\"Delete vehicle\",\"Search vehicle\",\n" +
-"            \"Show vehicle list\",\"Store data to file\",\"Quit app"};
-        VehicleManagement vm = new VehicleManagement("", option);
+        final String[] option={"Load all data from file","Add new vehicle",
+            "Update vehicle","Delete vehicle","Search vehicle",
+            "Show vehicle list","Store data to file","Quit app"
+        };
+        VehicleManagement vm = new VehicleManagement("VEHICLE MANAGEMENT APP", option);
         vm.run();
     }
     
@@ -65,7 +64,26 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
 
     @Override
     public void showVehicle() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        final String[] option = {
+            "Show all",
+            "Show all by decending by price"
+        };
+        Menu<String> menu = new Menu<String>(title, option) {
+            @Override
+            public void execute(int n) {
+                switch (n) {
+                    case 1:
+                        vl.displayAll(vl.getList());
+                        break;
+                    case 2:
+                        vl.sortByPrice();
+                        vl.displayAll(vl.getList());
+                        break;
+                    default:   break;
+                }
+            }
+        };
+        menu.run();
     }
 
     @Override

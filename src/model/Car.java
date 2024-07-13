@@ -1,7 +1,9 @@
 
 package model;
 
+import java.text.SimpleDateFormat;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 
 public class Car extends Vehicle{
     private String typeVehicle;
@@ -12,10 +14,10 @@ public class Car extends Vehicle{
     }
 
     
-    public Car(String idVehicle, String nameVehicle, String colorVehicle, double priceVehicle, String brandVehicle, String typeVehicle, Year yearOfManufacture) {
+    public Car(String idVehicle, String nameVehicle, String colorVehicle, double priceVehicle, String brandVehicle, String typeVehicle, String yearOfManufacture) {
         super(idVehicle, nameVehicle, colorVehicle, priceVehicle, brandVehicle);
         this.typeVehicle = typeVehicle;
-        this.yearOfManufacture = yearOfManufacture;
+        setYearOfManufacture(yearOfManufacture);
     }
 
     public String getTypeVehicle() {
@@ -30,13 +32,15 @@ public class Car extends Vehicle{
         this.typeVehicle = typeVehicle;
     }
 
-    public void setYearOfManufacture(Year yearOfManufacture) {
-        this.yearOfManufacture = yearOfManufacture;
+    public final void setYearOfManufacture(String yearOfManufacture){
+        DateTimeFormatter time = DateTimeFormatter.ofPattern("yyyy");
+        this.yearOfManufacture = Year.parse(yearOfManufacture, time);
     }
 
     @Override
     public String toString() {
-        return super.toString() + "Car{" + "typeVehicle=" + typeVehicle + ", yearOfManufacture=" + yearOfManufacture + '}';
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
+        return "CAR" + super.toString() + "(Type:" + typeVehicle + ",YearofManufacture:" + format.format(yearOfManufacture) +')';
     }
 
     

@@ -4,7 +4,8 @@ package model;
 public class Motorbike extends Vehicle {
     private int speedVehicle;
     private String license;
-
+    private static final String MAKE_SOUND = "Tin tin tin";
+    
     public Motorbike() {
         super();
     }
@@ -35,7 +36,7 @@ public class Motorbike extends Vehicle {
 
     @Override
     public String toString() {
-        return super.toString() + "Motorbike{" + "speedVehicle=" + speedVehicle + ", license=" + license + '}';
+        return "MOTORBIKE" + super.toString() + "(speedVehicle:" + speedVehicle + ",license:" + license +",Sound:"+MAKE_SOUND+ ')';
     }
     
     
