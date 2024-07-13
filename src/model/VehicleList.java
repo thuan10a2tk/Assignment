@@ -30,6 +30,6 @@ public class VehicleList {
         
     }
     public void sortByPrice(){
-        list.sort((o1,o2)->Double.compare(o1.getPriceVehicle(), o2.getPriceVehicle()));
+        list.sort((o1,o2)->Double.compare(o2.getPriceVehicle(), o1.getPriceVehicle()));
     }
 }
