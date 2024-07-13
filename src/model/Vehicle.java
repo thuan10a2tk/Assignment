@@ -7,28 +7,26 @@ public class Vehicle {
     private String colorVehicle;
     private double priceVehicle;
     private String brandVehicle;
-
+    
     public Vehicle() {
     }
 
     public Vehicle(String idVehicle, String nameVehicle, String colorVehicle, double priceVehicle, String brandVehicle) {
-        this.idVehicle = idVehicle;
+        setIdVehicle(idVehicle);
         this.nameVehicle = nameVehicle;
         this.colorVehicle = colorVehicle;
         this.priceVehicle = priceVehicle;
         this.brandVehicle = brandVehicle;
     }
-
-   
-
+    
     public String getIdVehicle() {
         return idVehicle;
     }
 
-    public void setIdVehicle(String idVehicle) {
-        this.idVehicle = idVehicle;
+    public final void setIdVehicle(String idVehicle) {
+        if(idVehicle.matches("^[CB]\\d{4}$")) this.idVehicle = idVehicle;
+        else this.idVehicle = null;
     }
-
     public String getNameVehicle() {
         return nameVehicle;
     }
@@ -63,7 +61,8 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return "Vehicle{" + "idVehicle=" + idVehicle + ", nameVehicle=" + nameVehicle + ", colorVehicle=" + colorVehicle + ", priceVehicle=" + priceVehicle + ", brandVehicle=" + brandVehicle + '}';
+        return String.format("%-20s | %-20s | %-20s | %-20.2f | %-20s ", this.idVehicle,
+                this.nameVehicle, this.colorVehicle, this.priceVehicle, this.brandVehicle);
     }
     
     
