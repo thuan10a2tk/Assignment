@@ -1,6 +1,9 @@
 
 package model;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,17 @@ public class VehicleList {
 
     public ArrayList<Vehicle> getList() {
         return list;
+    }
+    public void storeDataToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("vehicles.txt"))) {
+            for (Vehicle vehicle : list) {
+                writer.write(vehicle.toString());
+                writer.newLine();
+            }
+            System.out.println("Data has been written to vehicles.txt successfully.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+        }
     }
     public void displayAll(List<Vehicle> L) {
             System.out.println("List of Vehicle" );
