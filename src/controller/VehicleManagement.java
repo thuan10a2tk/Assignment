@@ -42,7 +42,7 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
 
     @Override
     public void loadFromFile() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        utils.displayAll(vl.getList());
     }
 
     @Override
@@ -124,9 +124,29 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
         }
     }
 
-    @Override
+     @Override
     public void searchVehicle() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        final String[] option1 = {
+            "Search by name",
+            "Search by id"
+        };
+        Menu<String> menu = new Menu<String>("Search vehicle", option1) {
+            @Override
+            public void execute(int n) {
+                switch (n) {
+                    case 1:
+                        String name = utils.getName("Enter name: ");
+                        utils.displayAll(vl.sortByName(vl.searchByLambda(ve->ve.getNameVehicle().contains(name))));
+                        break;
+                    case 2:
+                        String id = utils.getId("Enter id: ");
+                        utils.displayAll(vl.searchByLambda(ve->ve.getIdVehicle().equals(id)));
+                        break;
+                    default:   break;
+                }
+            }
+        };
+        menu.run();
     }
 
     @Override
@@ -135,7 +155,7 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
             "Show all",
             "Show all by decending by price"
         };
-        Menu<String> menu = new Menu<String>(title, option) {
+        Menu<String> menu = new Menu<String>("Show vehicle list", option) {
             @Override
             public void execute(int n) {
                 switch (n) {
