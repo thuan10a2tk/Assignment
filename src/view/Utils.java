@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Utils {
-    private final String ID_VALID = "^[BC]\\d{4}$";
+    private static final String ID_VALID = "^[BC]\\d{3}$";
     Scanner sc;
     public Utils() {
        sc =  new Scanner(System.in);
@@ -16,7 +16,6 @@ public class Utils {
     public String checkString(){
         while(true){
             String str = sc.nextLine().trim();
-            if(!str.isEmpty())
                 return str;
         }
     }
@@ -31,14 +30,13 @@ public class Utils {
             }
         }
     }
+    
     public String getName(String s){
         String res="";
-        while(true){
-            System.out.println(s);
-            res = sc.nextLine();
-            if(!res.isEmpty()) break;
-        }     
+        System.out.println(s);
+            res = sc.next();
         return res;
+        
     }
     public double getPrice(String s){
         while(true){
@@ -46,6 +44,19 @@ public class Utils {
                 System.out.println(s);
                 double res = Double.parseDouble(sc.nextLine());
                 return res;
+            } catch (NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    public int getSpeed(String s){
+        while(true){
+            try {
+                System.out.println(s);
+                int res = Integer.parseInt(sc.nextLine());
+                if(res>0)
+                return res;
+                else System.out.println("Speed must be > 0! Enter again: ");
             } catch (NumberFormatException e) {
                 System.out.println(e.getMessage());
             }
@@ -76,7 +87,7 @@ public class Utils {
         }
     }
 
-    public String checkID(String s){
+    public static String checkID(String s){
         if(s.matches(ID_VALID))
             return s;
         else return null;

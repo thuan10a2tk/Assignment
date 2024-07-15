@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import view.Utils;
 
 public class VehicleList {
     ArrayList<Vehicle> list;
 
     public VehicleList() {
         list = new ArrayList<>();
-        loadDataFromFile("vehicle.txt");
+        loadDataFromFile("vehicles.txt");
     }
 
     public ArrayList<Vehicle> getList() {
@@ -27,34 +28,34 @@ public class VehicleList {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length >= 7) {
-                    int id = Integer.parseInt(data[0]);
-                    String name = data[1];
-                    String color = data[2];
-                    double price = Double.parseDouble(data[3]);
-                    String brand = data[4];
-                    String type = data[5];
-                    int yearOfManufacture = Integer.parseInt(data[6]);
-
-                    // Create and add a new Car to the list
-                    Car car = new Car(Integer.toString(id), name, color, price, brand, type, Year.of(yearOfManufacture));
+                try {
+                    String[] part = line.split(",");
+                if(Utils.checkID(part[0])== null)  throw new Exception("Id invalid!");
+                else if(part[0].matches("^C\\d{3}$")){
+                    Car car = new Car();
+                    car.setIdVehicle(part[0]);
+                    car.setNameVehicle(part[1]);
+                    car.setColorVehicle(part[2]);
+                    car.setPriceVehicle(Double.parseDouble(part[3]));
+                    car.setBrandVehicle(part[4]);
+                    car.setTypeVehicle(part[5]);
+                    car.setYearOfManufacture(Integer.parseInt(part[6]));
                     list.add(car);
-                } else if (data.length >= 8) {
-                    int id = Integer.parseInt(data[0]);
-                    String name = data[1];
-                    String color = data[2];
-                    double price = Double.parseDouble(data[3]);
-                    String brand = data[4];
-                    int speed = Integer.parseInt(data[5]);
-                    String license = data[6];
-
-                    // Create and add a new Motorbike to the list
-                    Motorbike motorbike = new Motorbike(Integer.toString(id), name, color, price, brand, speed, license);
+                } else {
+                    Motorbike motorbike = new Motorbike();
+                    motorbike.setIdVehicle(part[0]);
+                    motorbike.setNameVehicle(part[1]);
+                    motorbike.setColorVehicle(part[2]);
+                    motorbike.setPriceVehicle(Double.parseDouble(part[3]));
+                    motorbike.setBrandVehicle(part[4]);
+                    motorbike.setSpeedVehicle(Integer.parseInt( part[5]));
+                    motorbike.setLicense(part[6]);
                     list.add(motorbike);
                 }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
-            System.out.println("Data loaded successfully from file.");
         } catch (IOException e) {
             System.out.println("Error loading data from file: " + e.getMessage());
         }
