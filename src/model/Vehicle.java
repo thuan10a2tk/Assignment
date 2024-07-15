@@ -62,7 +62,7 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return String.format("%-20s | %-20s | %-20s | %-20.2f | %-20s ", this.idVehicle,
+        return String.format(" %-20s | %-25s | %-20s | %-20.2f | %-20s ", this.idVehicle,
                 this.nameVehicle, this.colorVehicle, this.priceVehicle, this.brandVehicle);
     }
     

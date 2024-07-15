@@ -45,7 +45,7 @@ public class Car extends Vehicle{
 
     @Override
     public String toString() {
-        return "CAR" + super.toString() + "(Type:" + typeVehicle + ",YearofManufacture:" + yearOfManufacture.getValue() +')';
+        return "CAR                  |" + super.toString() +"| "+ "(Type:" + typeVehicle + ",YearofManufacture:" + yearOfManufacture.getValue() +')';
     }
 
     

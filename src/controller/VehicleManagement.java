@@ -2,6 +2,7 @@
 package controller;
 
 import java.text.ParseException;
+import java.time.Year;
 import java.util.Scanner;
 import model.Car;
 import model.Motorbike;
@@ -44,76 +45,51 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
 
     @Override
     public void loadFromFile() {
+        vl.loadDataFromFile("vehicles.txt");
         vl.displayAll(vl.getList());
     }
 
     @Override
     public void addNewVehicle() {
-        System.out.println("Choose vehicle type: 1. Car 2. Motorbike");
-        Scanner scanner = new Scanner(System.in);
-        int choice;
-        do {
-            System.out.print("Enter your choice (1 or 2): ");
-            while (!scanner.hasNextInt()) {
-                System.out.println("Invalid input. Please enter an integer.");
-                scanner.next(); // Đọc và loại bỏ giá trị không phù hợp
+        final String[] opion = {
+            "Add Car",
+            "Add Motorbike"
+        };
+        Menu<String> menu = new Menu<String>("Add Vehicle", opion) {
+            @Override
+            public void execute(int n) {
+                switch (n) {
+                    case 1:
+                        String id = utils.getId("Enter car ID (C000): ");
+                        if(id.matches("^C\\d{3}$")&&!vl.searchByLambda(ve->ve.getIdVehicle().equals(id)).isEmpty())
+                            System.out.println("ID exist!");
+                        String name = utils.getName("Enter name of car: ");
+                        String color = utils.getName("Enter color of car: ");
+                        double price = utils.getPrice("Enter price of car: ");
+                        String brand = utils.getName("Enter brand of car: ");
+                        String type = utils.getName("Enter type of car: ");
+                        Year year = utils.getYear("Enter year of manufacture: ");
+                        vl.addNewCar(new Car(id, name, color, price, brand, type, year));
+                        break;
+                        
+                    case 2: 
+                        String id1 = utils.getId("Enter car ID (C000): ");
+                        if(id1.matches("^B\\d{3}$")&&!vl.searchByLambda(ve->ve.getIdVehicle().equals(id1)).isEmpty())
+                            System.out.println("ID exist!");
+                        String name1 = utils.getName("Enter name of car: ");
+                        String color1 = utils.getName("Enter color of car: ");
+                        double price1 = utils.getPrice("Enter price of car: ");
+                        String brand1 = utils.getName("Enter brand of car: ");
+                        int speed = utils.getSpeed("Enter speed of car: ");
+                        String license = utils.getYesNo("Enter licence require(yes/no): ");
+                        vl.addNewMotorbike(new Motorbike(id1, name1, color1, price1, brand1, speed, license));
+                        break;
+                }
             }
-            choice = scanner.nextInt();
-        } while (choice < 1 || choice > 2);
-        if (choice == 1) {
-            Car car = new Car();
-            System.out.print("Enter car ID (C000): ");
-            String id = utils.checkString();
-            if (!id.matches(id) || vl.getList().stream().anyMatch(b -> b.getIdVehicle().equals(id))) {
-                System.out.println("The car with this ID already exists.");
-                return;
-            }
-            car.setIdVehicle(id);
-            System.out.print("Enter car name: ");
-            car.setNameVehicle(utils.checkString());
-            System.out.print("Enter car color: ");
-
-            car.setColorVehicle(utils.checkString());
-            car.setPriceVehicle(utils.getPrice("Enter car price: "));
-            System.out.print("Enter the brand: ");
-
-            car.setBrandVehicle(utils.checkString());
-            System.out.print("Enter car type: ");
-
-            car.setTypeVehicle(utils.checkString());
-            try {
-                car.setYearOfManufacture(utils.getYear("Enter car year of manufacture (yyyy): ").toString());
-            } catch (ParseException ex) {
-                System.out.println(ex.getMessage());
-            }
-            vl.getList().add(car);
-            System.out.println("New car added successfully.");
-        } else {
-            Motorbike motorbike = new Motorbike();
-            System.out.print("Enter car ID (B000): ");
-            String id = utils.checkString();
-            if (!id.matches(id) || vl.getList().stream().anyMatch(b -> b.getIdVehicle().equals(id))) {
-                System.out.println("The motorbike with this ID already exists.");
-                return;
-            }
-            motorbike.setIdVehicle(id);
-            System.out.print("Enter motorbike name: ");
-
-            motorbike.setNameVehicle(utils.checkString());
-            System.out.print("Enter motorbike color: ");
-
-            motorbike.setColorVehicle(utils.checkString());
-            motorbike.setPriceVehicle(utils.getPrice("Enter motorbike price: "));
-            System.out.print("Enter motorbike brand: ");
-
-            motorbike.setBrandVehicle(utils.checkString());
-            motorbike.setSpeedVehicle(utils.getSpeed("Enter motorbike speed (km/h) : "));
-            motorbike.setLicense(utils.getYesNo("Require license (yes/no): "));
-            vl.getList().add(motorbike);
-            System.out.println("New motorbike added successfully.");
-        }
+        };
+        menu.run();
     }
-
+    
 
     @Override
     public void updateVehicle() {
