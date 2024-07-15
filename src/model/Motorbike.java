@@ -28,12 +28,15 @@ public class Motorbike extends Vehicle {
     public String getLicense() {
         return license;
     }
-
+    
     public final void setLicense(String yn) {
         if(yn.equalsIgnoreCase("yes")) this.license = "require license";
         else if(yn.equalsIgnoreCase("no")) this.license = "not require";
     }
-
+    public String getYesNo(){
+        if(this.license.equals("require license")) return "yes";
+        else return "no";
+    }
     @Override
     public String toString() {
         return "MOTORBIKE            |" + super.toString()+"| " + "(speedVehicle:" + speedVehicle + ",license:" + license +",Sound:"+MAKE_SOUND+ ')';
