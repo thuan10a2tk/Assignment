@@ -174,14 +174,13 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
             @Override
             public void execute(int n) {
                 switch (n) {
-                    case 1:
-                        vl.displayAll(vl.getList());
-                        break;
-                    case 2:
+                    case 1 -> vl.displayAll(vl.getList());
+                    case 2 -> {
                         vl.sortByPrice();
                         vl.displayAll(vl.getList());
-                        break;
-                    default:   break;
+                    }
+                    default -> {
+                    }
                 }
             }
         };
