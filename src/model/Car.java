@@ -1,9 +1,7 @@
 
 package model;
 
-import java.text.SimpleDateFormat;
 import java.time.Year;
-import java.time.format.DateTimeFormatter;
 
 public class Car extends Vehicle{
     private String typeVehicle;
@@ -14,10 +12,15 @@ public class Car extends Vehicle{
     }
 
     
-    public Car(String idVehicle, String nameVehicle, String colorVehicle, double priceVehicle, String brandVehicle, String typeVehicle, String yearOfManufacture) {
+    public Car(String idVehicle, String nameVehicle, String colorVehicle, double priceVehicle, String brandVehicle, String typeVehicle, int yearOfManufacture) {
         super(idVehicle, nameVehicle, colorVehicle, priceVehicle, brandVehicle);
         this.typeVehicle = typeVehicle;
         setYearOfManufacture(yearOfManufacture);
+    }
+    public Car(String idVehicle, String nameVehicle, String colorVehicle, double priceVehicle, String brandVehicle, String typeVehicle, Year yearOfManufacture) {
+        super(idVehicle, nameVehicle, colorVehicle, priceVehicle, brandVehicle);
+        this.typeVehicle = typeVehicle;
+        this.yearOfManufacture = yearOfManufacture;
     }
 
     public String getTypeVehicle() {
@@ -32,15 +35,17 @@ public class Car extends Vehicle{
         this.typeVehicle = typeVehicle;
     }
 
-    public final void setYearOfManufacture(String yearOfManufacture){
-        DateTimeFormatter time = DateTimeFormatter.ofPattern("yyyy");
-        this.yearOfManufacture = Year.parse(yearOfManufacture, time);
+    public final void setYearOfManufacture(int yearOfManufacture){
+        try {
+         this.yearOfManufacture = Year.of(yearOfManufacture);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public String toString() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy");
-        return "CAR" + super.toString() + "(Type:" + typeVehicle + ",YearofManufacture:" + format.format(yearOfManufacture) +')';
+        return "CAR" + super.toString() + "(Type:" + typeVehicle + ",YearofManufacture:" + yearOfManufacture.getValue() +')';
     }
 
     

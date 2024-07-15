@@ -19,12 +19,13 @@ public class Vehicle {
         this.brandVehicle = brandVehicle;
     }
     
+    
     public String getIdVehicle() {
         return idVehicle;
     }
 
     public final void setIdVehicle(String idVehicle) {
-        if(idVehicle.matches("^[CB]\\d{4}$")) this.idVehicle = idVehicle;
+        if(idVehicle.matches("^[CB]\\d{3}$")) this.idVehicle = idVehicle;
         else this.idVehicle = null;
     }
     public String getNameVehicle() {

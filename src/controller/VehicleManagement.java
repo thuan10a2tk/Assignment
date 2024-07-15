@@ -1,6 +1,8 @@
 
 package controller;
 
+import java.text.ParseException;
+import java.util.Scanner;
 import model.Car;
 import model.Motorbike;
 import model.Vehicle;
@@ -42,18 +44,80 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
 
     @Override
     public void loadFromFile() {
-        utils.displayAll(vl.getList());
+        vl.displayAll(vl.getList());
     }
 
     @Override
     public void addNewVehicle() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("Choose vehicle type: 1. Car 2. Motorbike");
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.print("Enter your choice (1 or 2): ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter an integer.");
+                scanner.next(); // Đọc và loại bỏ giá trị không phù hợp
+            }
+            choice = scanner.nextInt();
+        } while (choice < 1 || choice > 2);
+        if (choice == 1) {
+            Car car = new Car();
+            System.out.print("Enter car ID (C000): ");
+            String id = utils.checkString();
+            if (!id.matches(id) || vl.getList().stream().anyMatch(b -> b.getIdVehicle().equals(id))) {
+                System.out.println("The car with this ID already exists.");
+                return;
+            }
+            car.setIdVehicle(id);
+            System.out.print("Enter car name: ");
+            car.setNameVehicle(utils.checkString());
+            System.out.print("Enter car color: ");
+
+            car.setColorVehicle(utils.checkString());
+            car.setPriceVehicle(utils.getPrice("Enter car price: "));
+            System.out.print("Enter the brand: ");
+
+            car.setBrandVehicle(utils.checkString());
+            System.out.print("Enter car type: ");
+
+            car.setTypeVehicle(utils.checkString());
+            try {
+                car.setYearOfManufacture(utils.getYear("Enter car year of manufacture (yyyy): ").toString());
+            } catch (ParseException ex) {
+                System.out.println(ex.getMessage());
+            }
+            vl.getList().add(car);
+            System.out.println("New car added successfully.");
+        } else {
+            Motorbike motorbike = new Motorbike();
+            System.out.print("Enter car ID (B000): ");
+            String id = utils.checkString();
+            if (!id.matches(id) || vl.getList().stream().anyMatch(b -> b.getIdVehicle().equals(id))) {
+                System.out.println("The motorbike with this ID already exists.");
+                return;
+            }
+            motorbike.setIdVehicle(id);
+            System.out.print("Enter motorbike name: ");
+
+            motorbike.setNameVehicle(utils.checkString());
+            System.out.print("Enter motorbike color: ");
+
+            motorbike.setColorVehicle(utils.checkString());
+            motorbike.setPriceVehicle(utils.getPrice("Enter motorbike price: "));
+            System.out.print("Enter motorbike brand: ");
+
+            motorbike.setBrandVehicle(utils.checkString());
+            motorbike.setSpeedVehicle(utils.getSpeed("Enter motorbike speed (km/h) : "));
+            motorbike.setLicense(utils.getYesNo("Require license (yes/no): "));
+            vl.getList().add(motorbike);
+            System.out.println("New motorbike added successfully.");
+        }
     }
+
 
     @Override
     public void updateVehicle() {
-        System.out.print("Enter the vehicle ID to update: ");
-        String id = utils.checkString();
+        String id = utils.getId("Enter the vehicle ID to update: ");
         Vehicle vehicle = vl.getList().stream().filter(v -> v.getIdVehicle().equals(id)).findFirst().orElse(null);
         
         if (vehicle == null) {
@@ -62,31 +126,26 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
         }
 
         System.out.println("Leave blank to keep current value.");
-        System.out.print("Enter new name (current: " + vehicle.getNameVehicle() + "): ");
-        String name = utils.checkString();
+        
+        String name = utils.getName("Enter new name (current: " + vehicle.getNameVehicle() + "): ");
         if (!name.isEmpty()) vehicle.setNameVehicle(name);
         
-        System.out.print("Enter new color (current: " + vehicle.getColorVehicle() + "): ");
-        String color = utils.checkString();
+        String color = utils.getName("Enter new color (current: " + vehicle.getColorVehicle() + "): ");
         if (!color.isEmpty()) vehicle.setColorVehicle(color);
         
-        System.out.print("Enter new price (current: " + vehicle.getPriceVehicle() + "): ");
-        String priceStr = utils.checkString();
+        String priceStr = utils.getName("Enter new price (current: " + vehicle.getPriceVehicle() + "): ");
         if (!priceStr.isEmpty()) vehicle.setPriceVehicle(Double.parseDouble(priceStr));
         
-        System.out.print("Enter new brand (current: " + vehicle.getBrandVehicle() + "): ");
-        String brand = utils.checkString();
+        String brand = utils.getName("Enter new brand (current: " + vehicle.getBrandVehicle() + "): ");
         if (!brand.isEmpty()) vehicle.setBrandVehicle(brand);
         
         // Handle specific fields for Car and Motorbike if needed
         if(vehicle instanceof Car) {
             Car car = (Car) vehicle;
-            System.out.print("Enter new type (current: " + car.getTypeVehicle() + "): ");
-            String type = utils.checkString();
+            String type = utils.getName("Enter new type (current: " + car.getTypeVehicle() + "): ");
             if (!type.isEmpty()) car.setTypeVehicle(type);
 
-            System.out.print("Enter new year of manufacture (current: " + car.getYearOfManufacture() + "): ");
-            String year = utils.checkString();
+            String year = utils.getName("Enter new year of manufacture (current: " + car.getYearOfManufacture() + "): ");
             if (!year.isEmpty()) car.setYearOfManufacture(year);
         }else if (vehicle instanceof Motorbike) {
             Motorbike motorbike = (Motorbike) vehicle;
