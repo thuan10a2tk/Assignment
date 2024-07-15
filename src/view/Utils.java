@@ -13,9 +13,10 @@ public class Utils {
     public Utils() {
        sc =  new Scanner(System.in);
     }
-    public String checkString(){
+     public String checkString(){
         while(true){
             String str = sc.nextLine().trim();
+            if(!str.isEmpty())
                 return str;
         }
     }
@@ -33,10 +34,12 @@ public class Utils {
     
     public String getName(String s){
         String res="";
-        System.out.println(s);
-            res = sc.next();
+        while(true){
+            System.out.println(s);
+            res = sc.nextLine();
+            if(!res.isEmpty()) break;
+        }     
         return res;
-        
     }
     public double getPrice(String s){
         while(true){
@@ -74,7 +77,7 @@ public class Utils {
         }
     }
     
-    public Year getYear(String s) throws ParseException{
+    public Year getYear(String s) {
         while(true){
             System.out.println(s);
             String str = checkString();

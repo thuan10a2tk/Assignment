@@ -17,47 +17,31 @@ public class VehicleList {
 
     public VehicleList() {
         list = new ArrayList<>();
-        loadDataFromFile("vehicles.txt");
+        
     }
 
     public ArrayList<Vehicle> getList() {
         return list;
         
     }
-    private void loadDataFromFile(String filename) {
+    public void loadDataFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
                     String[] part = line.split(",");
-                if(Utils.checkID(part[0])== null)  throw new Exception("Id invalid!");
+                if(Utils.checkID(part[0])== null | !searchByLambda(ve->ve.getIdVehicle().equals(part[0])).isEmpty())  throw new Exception("Id invalid or Id existed!");
                 else if(part[0].matches("^C\\d{3}$")){
-                    Car car = new Car();
-                    car.setIdVehicle(part[0]);
-                    car.setNameVehicle(part[1]);
-                    car.setColorVehicle(part[2]);
-                    car.setPriceVehicle(Double.parseDouble(part[3]));
-                    car.setBrandVehicle(part[4]);
-                    car.setTypeVehicle(part[5]);
-                    car.setYearOfManufacture(Integer.parseInt(part[6]));
+                    Car car = new Car(part[0], part[1], part[2], Double.parseDouble(part[3]), part[4], part[5], Integer.parseInt(part[6]));
                     list.add(car);
                 } else {
-                    Motorbike motorbike = new Motorbike();
-                    motorbike.setIdVehicle(part[0]);
-                    motorbike.setNameVehicle(part[1]);
-                    motorbike.setColorVehicle(part[2]);
-                    motorbike.setPriceVehicle(Double.parseDouble(part[3]));
-                    motorbike.setBrandVehicle(part[4]);
-                    motorbike.setSpeedVehicle(Integer.parseInt( part[5]));
-                    motorbike.setLicense(part[6]);
+                    Motorbike motorbike = new Motorbike(part[0],part[1],part[2],Double.parseDouble(part[3]),part[4],Integer.parseInt( part[5]),part[6]);
                     list.add(motorbike);
                 }
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error loading data from file: " + e.getMessage());
         }
     }
     public void storeDataToFile() {
@@ -73,7 +57,7 @@ public class VehicleList {
     }
     public void displayAll(List<Vehicle> L) {
             System.out.println("List of Vehicle" );
-            System.out.printf("%-20s | %-20s | %-20s | %-20s | %-20s | %-20s \n","Type", "ID", "Name","Color","Price","Brand");
+            System.out.printf("%-20s | %-20s | %-25s | %-20s | %-20s | %-20s | %-20s \n","Type", "ID", "Name","Color","Price","Brand","Private attribute");
             System.out.println("---------------------");
             for (Vehicle vi : L) {
                 if(vi instanceof Car)
@@ -96,5 +80,11 @@ public class VehicleList {
     public List<Vehicle> sortByName(List<Vehicle>li ){
         li.sort((o1,o2)->o2.getNameVehicle().compareTo(o1.getNameVehicle()));
         return li;
+    }
+    public void addNewCar(Car e){
+        list.add(e);
+    }
+    public void addNewMotorbike(Motorbike e){
+        list.add(e);
     }
 }
