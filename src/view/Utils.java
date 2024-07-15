@@ -1,6 +1,5 @@
 package view;
 
-import java.text.ParseException;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -19,6 +18,10 @@ public class Utils {
             if(!str.isEmpty())
                 return str;
         }
+    }
+    public String getString(String s){
+        System.out.println(s);
+        return sc.nextLine();
     }
     public String getId(String s){
         while(true){

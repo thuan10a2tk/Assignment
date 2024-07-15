@@ -44,10 +44,19 @@ public class VehicleList {
         } catch (IOException e) {
         }
     }
-    public void storeDataToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("vehicles.txt"))) {
+    public void storeDataToFile(String fname) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fname))) {
             for (Vehicle vehicle : list) {
-                writer.write(vehicle.toString());
+                if(vehicle instanceof Car car){
+                    writer.write(vehicle.getIdVehicle()+","+vehicle.getNameVehicle()+","
+                    +vehicle.getColorVehicle()+","+vehicle.getPriceVehicle()+","+vehicle.getBrandVehicle()+","
+                    +car.getTypeVehicle()+","+car.getYearOfManufacture().getValue());
+                }
+                if(vehicle instanceof Motorbike motorbike){
+                    writer.write(vehicle.getIdVehicle()+","+vehicle.getNameVehicle()+","
+                    +vehicle.getColorVehicle()+","+vehicle.getPriceVehicle()+","+vehicle.getBrandVehicle()+","
+                    +motorbike.getSpeedVehicle()+","+motorbike.getYesNo());
+                }
                 writer.newLine();
             }
             System.out.println("Data has been written to vehicles.txt successfully.");
