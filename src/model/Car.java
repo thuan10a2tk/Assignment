@@ -42,6 +42,15 @@ public class Car extends Vehicle{
             System.out.println(e.getMessage());
         }
     }
+    public void updateType(String type){
+        if(!type.equals("")) this.typeVehicle = type;
+    }
+    public void updateYear(String year){
+        try {
+            if(!year.equals("")) this.yearOfManufacture = Year.parse(year);
+        } catch (Exception e) {
+        }
+    }
 
     @Override
     public String toString() {

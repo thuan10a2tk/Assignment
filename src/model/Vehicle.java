@@ -56,10 +56,23 @@ public class Vehicle {
         return priceVehicle;
     }
 
-    public void setPriceVehicle(double priceVehicle) {
-        this.priceVehicle = priceVehicle;
+    public void updatePrice(String priceVehicle) {
+        if(!priceVehicle.equals(""))
+        this.priceVehicle = Double.parseDouble(priceVehicle);
+    }
+    public void updateColor(String color) {
+        if(!color.equals("")) this.colorVehicle = color;
+    }
+    public void updateBrand(String brandVehicle) {
+        if(!brandVehicle.equals(""))
+        this.brandVehicle = brandVehicle;
+    }
+    public void updateName(String name) {
+        if(!name.equals(""))
+        this.nameVehicle = name;
     }
 
+    
     @Override
     public String toString() {
         return String.format(" %-20s | %-25s | %-20s | %-20.2f | %-20s ", this.idVehicle,

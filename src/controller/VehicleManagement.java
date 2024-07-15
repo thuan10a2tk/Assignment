@@ -1,9 +1,7 @@
 
 package controller;
 
-import java.text.ParseException;
 import java.time.Year;
-import java.util.Scanner;
 import model.Car;
 import model.Motorbike;
 import model.Vehicle;
@@ -103,35 +101,18 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
 
         System.out.println("Leave blank to keep current value.");
         
-        String name = utils.getName("Enter new name (current: " + vehicle.getNameVehicle() + "): ");
-        if (!name.isEmpty()) vehicle.setNameVehicle(name);
+        vehicle.updateName(utils.getString("Enter new name (current: " + vehicle.getNameVehicle() + "): "));
+        vehicle.updateColor(utils.getString("Enter new color (current: " + vehicle.getColorVehicle() + "): "));
+        vehicle.updatePrice(utils.getString("Enter new price (current: " + vehicle.getPriceVehicle() + "): "));
+        vehicle.updateBrand(utils.getString("Enter new brand (current: " + vehicle.getBrandVehicle() + "): "));
         
-        String color = utils.getName("Enter new color (current: " + vehicle.getColorVehicle() + "): ");
-        if (!color.isEmpty()) vehicle.setColorVehicle(color);
-        
-        String priceStr = utils.getName("Enter new price (current: " + vehicle.getPriceVehicle() + "): ");
-        if (!priceStr.isEmpty()) vehicle.setPriceVehicle(Double.parseDouble(priceStr));
-        
-        String brand = utils.getName("Enter new brand (current: " + vehicle.getBrandVehicle() + "): ");
-        if (!brand.isEmpty()) vehicle.setBrandVehicle(brand);
-        
-        // Handle specific fields for Car and Motorbike if needed
-        if(vehicle instanceof Car) {
-            Car car = (Car) vehicle;
-            String type = utils.getName("Enter new type (current: " + car.getTypeVehicle() + "): ");
-            if (!type.isEmpty()) car.setTypeVehicle(type);
-
-            String year = utils.getName("Enter new year of manufacture (current: " + car.getYearOfManufacture() + "): ");
-            if (!year.isEmpty()) car.setYearOfManufacture(year);
-        }else if (vehicle instanceof Motorbike) {
-            Motorbike motorbike = (Motorbike) vehicle;
-            System.out.print("Enter new speed (current: " + motorbike.getSpeedVehicle() + "): ");
-            String speedStr = utils.checkString();
-            if (!speedStr.isEmpty()) motorbike.setSpeedVehicle(Integer.parseInt(speedStr));
-            
-            System.out.print("Enter new license requirement (current: " + motorbike.getLicense() + "): ");
-            String license = utils.getYesNo("");
-            if (!license.isEmpty()) motorbike.setLicense(license);
+        if(vehicle instanceof Car car) {
+            car.updateType(utils.getString("Enter new type (current: " + car.getTypeVehicle() + "): "));
+            car.updateYear(utils.getString("Enter new year of manufacture (current: " + car.getYearOfManufacture().getValue() + "): "));
+        }
+        if (vehicle instanceof Motorbike motorbike) {
+            motorbike.updateSpeed("Enter new speed (current: " + motorbike.getSpeedVehicle() + "): ");
+            motorbike.updateLicense("Enter new license requirement (current: " + motorbike.getLicense() + "): ");
         }
 
         System.out.println("Vehicle updated successfully.");
@@ -210,7 +191,7 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
 
     @Override
     public void storeDataToFile() {
-        vl.storeDataToFile();
+        vl.storeDataToFile("vehicles.txt");
     }
     
 }
