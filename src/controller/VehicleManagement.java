@@ -74,11 +74,11 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
                         String id1 = utils.getId("Enter car ID (C000): ");
                         if(id1.matches("^B\\d{3}$")&&!vl.searchByLambda(ve->ve.getIdVehicle().equals(id1)).isEmpty())
                             System.out.println("ID exist!");
-                        String name1 = utils.getName("Enter name of car: ");
-                        String color1 = utils.getName("Enter color of car: ");
-                        double price1 = utils.getPrice("Enter price of car: ");
-                        String brand1 = utils.getName("Enter brand of car: ");
-                        int speed = utils.getSpeed("Enter speed of car: ");
+                        String name1 = utils.getName("Enter name of motorbike: ");
+                        String color1 = utils.getName("Enter color of motorbike: ");
+                        double price1 = utils.getPrice("Enter price of motorbike: ");
+                        String brand1 = utils.getName("Enter brand of motorbike: ");
+                        int speed = utils.getSpeed("Enter speed of motorbike: ");
                         String license = utils.getYesNo("Enter licence require(yes/no): ");
                         vl.addNewMotorbike(new Motorbike(id1, name1, color1, price1, brand1, speed, license));
                     }
