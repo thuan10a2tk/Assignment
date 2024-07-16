@@ -20,7 +20,7 @@ public class Utils {
         }
     }
     public String getString(String s){
-        System.out.println(s);
+        System.out.print(s);
         return sc.nextLine();
     }
     public String getId(String s){
@@ -38,7 +38,7 @@ public class Utils {
     public String getName(String s){
         String res="";
         while(true){
-            System.out.println(s);
+            System.out.print(s);
             res = sc.nextLine();
             if(!res.isEmpty()) break;
         }     
@@ -47,7 +47,7 @@ public class Utils {
     public double getPrice(String s){
         while(true){
             try {
-                System.out.println(s);
+                System.out.print(s);
                 double res = Double.parseDouble(sc.nextLine());
                 return res;
             } catch (NumberFormatException e) {
@@ -58,7 +58,7 @@ public class Utils {
     public int getSpeed(String s){
         while(true){
             try {
-                System.out.println(s);
+                System.out.print(s);
                 int res = Integer.parseInt(sc.nextLine());
                 if(res>0)
                 return res;
@@ -72,7 +72,7 @@ public class Utils {
     
     public String getYesNo(String s){
         while (true) {
-            System.out.println(s);
+            System.out.print(s);
             String res = checkString();
             if(res.equalsIgnoreCase("yes")) return "yes";
             else if (res.equalsIgnoreCase("no")) return "no";
@@ -82,7 +82,7 @@ public class Utils {
     
     public Year getYear(String s) {
         while(true){
-            System.out.println(s);
+            System.out.print(s);
             String str = checkString();
             try {
                 DateTimeFormatter format =  DateTimeFormatter.ofPattern("yyyy");
@@ -97,16 +97,5 @@ public class Utils {
         if(s.matches(ID_VALID))
             return s;
         else return null;
-    }
-    public <O> void displayAll(List<O> L) {
-            System.out.println("List of ...." );
-            System.out.printf("%-15s | %-20s | %-15s | %-15s | %-15s \n","", "","","","");
-            System.out.println("---------------------");
-            for (O obj : L) {
-                System.out.println(obj);
-            }
-            System.out.println("---------------------");
-            System.out.println("Total : " + L.size() + " ...");
-        
     }
 }

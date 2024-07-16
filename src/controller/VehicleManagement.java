@@ -30,14 +30,14 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
     @Override
     public void execute(int n) {
         switch (n) {
-            case 1: loadFromFile(); break;
-            case 2: addNewVehicle(); break;
-            case 3: updateVehicle(); break;
-            case 4: deleteVehicle(); break;
-            case 5: searchVehicle(); break;
-            case 6: deleteVehicle(); break;
-            case 7: storeDataToFile(); break;
-            default: System.exit(0);
+            case 1 -> loadFromFile();
+            case 2 -> addNewVehicle();
+            case 3 -> updateVehicle();
+            case 4 -> deleteVehicle();
+            case 5 -> searchVehicle();
+            case 6 -> deleteVehicle();
+            case 7 -> storeDataToFile();
+            default -> System.exit(0);
         }
     }
 
@@ -57,7 +57,7 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
             @Override
             public void execute(int n) {
                 switch (n) {
-                    case 1:
+                    case 1 -> {
                         String id = utils.getId("Enter car ID (C000): ");
                         if(id.matches("^C\\d{3}$")&&!vl.searchByLambda(ve->ve.getIdVehicle().equals(id)).isEmpty())
                             System.out.println("ID exist!");
@@ -68,20 +68,20 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
                         String type = utils.getName("Enter type of car: ");
                         Year year = utils.getYear("Enter year of manufacture: ");
                         vl.addNewCar(new Car(id, name, color, price, brand, type, year));
-                        break;
+                    }
                         
-                    case 2: 
+                    case 2 -> { 
                         String id1 = utils.getId("Enter car ID (C000): ");
                         if(id1.matches("^B\\d{3}$")&&!vl.searchByLambda(ve->ve.getIdVehicle().equals(id1)).isEmpty())
                             System.out.println("ID exist!");
-                        String name1 = utils.getName("Enter name of car: ");
-                        String color1 = utils.getName("Enter color of car: ");
-                        double price1 = utils.getPrice("Enter price of car: ");
-                        String brand1 = utils.getName("Enter brand of car: ");
-                        int speed = utils.getSpeed("Enter speed of car: ");
+                        String name1 = utils.getName("Enter name of motorbike: ");
+                        String color1 = utils.getName("Enter color of motorbike: ");
+                        double price1 = utils.getPrice("Enter price of motorbike: ");
+                        String brand1 = utils.getName("Enter brand of motorbike: ");
+                        int speed = utils.getSpeed("Enter speed of motorbike: ");
                         String license = utils.getYesNo("Enter licence require(yes/no): ");
                         vl.addNewMotorbike(new Motorbike(id1, name1, color1, price1, brand1, speed, license));
-                        break;
+                    }
                 }
             }
         };
@@ -120,8 +120,7 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
 
      @Override
     public void deleteVehicle() {
-        System.out.print("Enter the vehicle ID to delete: ");
-        String id = utils.checkString();
+        String id = utils.getId("Enter the vehicle ID to delete: ");
         Vehicle vehicle = vl.getList().stream().filter(v -> v.getIdVehicle().equals(id)).findFirst().orElse(null);
         
         if (vehicle == null) {
@@ -129,8 +128,7 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
             return;
         }
         
-        System.out.print("Are you sure you want to delete this vehicle? (yes/no): ");
-        String confirmation = utils.getYesNo("");
+        String confirmation = utils.getYesNo("Are you sure you want to delete this vehicle? (yes/no): ");
         
         if (confirmation.equalsIgnoreCase("yes")) {
             vl.getList().remove(vehicle);
@@ -150,15 +148,16 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
             @Override
             public void execute(int n) {
                 switch (n) {
-                    case 1:
+                    case 1 -> {
                         String name = utils.getName("Enter name: ");
-                        utils.displayAll(vl.sortByName(vl.searchByLambda(ve->ve.getNameVehicle().contains(name))));
-                        break;
-                    case 2:
+                        vl.displayAll(vl.sortByName(vl.searchByLambda(ve->ve.getNameVehicle().contains(name))));
+                    }
+                    case 2 -> {
                         String id = utils.getId("Enter id: ");
-                        utils.displayAll(vl.searchByLambda(ve->ve.getIdVehicle().equals(id)));
-                        break;
-                    default:   break;
+                        vl.displayAll(vl.searchByLambda(ve->ve.getIdVehicle().equals(id)));
+                    }
+                    default -> {
+                    }
                 }
             }
         };
@@ -175,14 +174,13 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
             @Override
             public void execute(int n) {
                 switch (n) {
-                    case 1:
-                        vl.displayAll(vl.getList());
-                        break;
-                    case 2:
+                    case 1 -> vl.displayAll(vl.getList());
+                    case 2 -> {
                         vl.sortByPrice();
                         vl.displayAll(vl.getList());
-                        break;
-                    default:   break;
+                    }
+                    default -> {
+                    }
                 }
             }
         };
