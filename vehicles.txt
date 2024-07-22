@@ -1,10 +1,10 @@
+C004, Chevrolet Tahoe,Blue,65000.0,Chevrolet,SUV,2022
+C003, Ford Mustang,Red,55000.0,Ford,Coupe,2021
+C005, Tesla Model 3,Silver,50000.0,Tesla,Electric,2023
 C001, Toyota Camry,White,30000.0,Toyota,Sedan,2020
 C002, Honda Civic,Black,25000.0,Honda,Sedan,2019
-C003, Ford Mustang,Red,55000.0,Ford,Coupe,2021
-C004, Chevrolet Tahoe,Blue,65000.0,Chevrolet,SUV,2022
-C005, Tesla Model 3,Silver,50000.0,Tesla,Electric,2023
-B001,Yamaha R1,Blue,15000.0,Yamaha,299,yes
-B002,Honda CBR600RR,Red,12000.0,Honda,240,no
-B003,Kawasaki Ninja ZX-10R,Green,18000.0,Kawasaki,299,yes
 B004,Ducati Panigale V4,Red,25000.0,Ducati,300,no
 B005,BMW S1000RR,White,20000.0,BMW,299,yes
+B003,Kawasaki Ninja ZX-10R,Green,18000.0,Kawasaki,299,yes
+B001,Yamaha R1,Blue,15000.0,Yamaha,299,yes
+B002,Honda CBR600RR,Red,12000.0,Honda,240,no
