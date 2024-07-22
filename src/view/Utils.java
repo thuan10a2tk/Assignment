@@ -1,5 +1,6 @@
 package view;
 
+import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -91,10 +92,16 @@ public class Utils {
             }
         }
     }
-
+    
     public static String checkID(String s){
         if(s.matches(ID_VALID))
             return s;
         else return null;
+    }
+    public static String toStringDate(LocalDate time){
+        return time.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    }
+    public static LocalDate toLocalDate(String time){
+        return LocalDate.parse(time, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 }

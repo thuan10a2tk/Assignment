@@ -35,7 +35,7 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
             case 3 -> updateVehicle();
             case 4 -> deleteVehicle();
             case 5 -> searchVehicle();
-            case 6 -> deleteVehicle();
+            case 6 -> showVehicle();
             case 7 -> storeDataToFile();
             default -> System.exit(0);
         }
@@ -68,6 +68,7 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
                         String type = utils.getName("Enter type of car: ");
                         Year year = utils.getYear("Enter year of manufacture: ");
                         vl.addNewCar(new Car(id, name, color, price, brand, type, year));
+                        System.out.println("Add successful");
                     }
                         
                     case 2 -> { 
@@ -81,6 +82,7 @@ public class VehicleManagement extends Menu<String> implements I_FunctionList{
                         int speed = utils.getSpeed("Enter speed of motorbike: ");
                         String license = utils.getYesNo("Enter licence require(yes/no): ");
                         vl.addNewMotorbike(new Motorbike(id1, name1, color1, price1, brand1, speed, license));
+                        System.out.println("Add successful");
                     }
                 }
             }
